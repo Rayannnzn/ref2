@@ -1,0 +1,1759 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modest Kouture</title>
+    <meta
+      name="description"
+      content="Landing page reference: the Buy Bliss Figma layout (file XQQUDSoPscq02qTZq39gDq, node 1:2) in the Modest Kouture pink theme."
+    />
+    <!--
+      Assets come from the Figma file. Not used on purpose: logo-mark.png (the design's round mark; the
+      Modest Kouture logo replaces it). The design's purple dot decoration and pager circles are drawn in CSS
+      so they can take the pink palette. The header copies the store's own (components/layout/Header.tsx)
+      with its icons inline, and every font is Poppins, as on the store.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand-primary: #d4517a;
+        --brand-primary-light: #f2a8be;
+        --brand-primary-bg: #f9e4ec;
+        --brand-surface: #ffffff;
+        --brand-background: #fdf6f9;
+        --brand-text-primary: #2d2d2d;
+        --brand-text-secondary: #6b6b6b;
+        --brand-text-muted: #a89aa3;
+        --brand-border: #e8e0e4;
+        --brand-ink: #241e22;
+        --band: rgba(242, 168, 190, 0.3);
+        --band-strong: rgba(242, 168, 190, 0.38);
+        --shadow-button: 0 20px 35px rgba(212, 81, 122, 0.25);
+        --font-body: "Poppins", system-ui, sans-serif;
+        --gutter: 16px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--brand-text-primary);
+        background: var(--brand-surface);
+        overflow-x: hidden;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-weight: 400;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+
+      /* The store's heading style (Poppins Bold, tight tracking); every title
+         on the page shares it. */
+      .section-title,
+      .deal-title,
+      .red-title,
+      .newsletter-title,
+      .brands-title,
+      .hero-title {
+        font-weight: 700;
+        font-size: clamp(28px, 5vw, 40px);
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+      }
+
+      .section-title {
+        color: var(--brand-primary);
+        text-align: center;
+      }
+
+      .section-lead {
+        max-width: 658px;
+        margin: 8px auto 0;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--brand-text-secondary);
+        text-align: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 55px;
+        padding: 0 32px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--brand-primary);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1;
+        box-shadow: var(--shadow-button);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: filter 0.15s;
+      }
+
+      .btn:hover {
+        filter: brightness(0.94);
+      }
+
+      /* Rows that swipe on phones and lay out on wider screens. */
+      .row {
+        display: flex;
+        gap: 16px;
+        margin: 0 calc(-1 * var(--gutter));
+        padding: 0 var(--gutter);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .row::-webkit-scrollbar {
+        display: none;
+      }
+
+      .row > * {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
+      /* 1. Header: the store's own header (components/layout/Header.tsx).
+         Phones: menu, logo, search pill, cart. Wider screens add the actions
+         and the category bar. */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--brand-border);
+        transition: box-shadow 0.3s;
+      }
+
+      .site-header.is-scrolled {
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      }
+
+      .site-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 64px;
+        min-width: 0;
+      }
+
+      .site-bar svg {
+        width: 20px;
+        height: 20px;
+        flex: none;
+      }
+
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 10px;
+        background: none;
+        color: var(--brand-text-primary);
+        cursor: pointer;
+        transition: background-color 0.15s;
+      }
+
+      .icon-btn:hover {
+        background: var(--brand-primary-bg);
+      }
+
+      .menu-btn {
+        margin-left: -8px;
+      }
+
+      .site-logo {
+        flex: none;
+        min-width: 0;
+      }
+
+      .site-logo img {
+        height: 40px;
+        width: auto;
+        max-width: 140px;
+        object-fit: contain;
+      }
+
+      .site-search {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .site-search input {
+        width: 100%;
+        height: 40px;
+        padding: 0 40px 0 16px;
+        border: 1px solid var(--brand-border);
+        border-radius: 999px;
+        background: var(--brand-background);
+        color: var(--brand-text-primary);
+        font-size: 14px;
+      }
+
+      .site-search input::placeholder {
+        color: var(--brand-text-secondary);
+      }
+
+      .site-search input:focus {
+        outline: none;
+        border-color: var(--brand-primary);
+        box-shadow: 0 0 0 2px rgba(212, 81, 122, 0.5);
+        background: var(--brand-surface);
+      }
+
+      .site-search .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 14px;
+        transform: translateY(-50%);
+        display: flex;
+        color: var(--brand-text-secondary);
+        pointer-events: none;
+      }
+
+      .site-search .search-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .site-actions {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        margin-left: auto;
+        flex: none;
+      }
+
+      .sell,
+      .likes,
+      .btn-ghost,
+      .site-actions .btn {
+        display: none;
+      }
+
+      .btn-outline {
+        align-items: center;
+        gap: 8px;
+        height: 52px;
+        padding: 0 24px;
+        border: 1px solid var(--brand-primary);
+        border-radius: 10px;
+        color: var(--brand-primary);
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background-color 0.15s;
+      }
+
+      .btn-outline:hover {
+        background: var(--brand-primary-bg);
+      }
+
+      .btn-ghost {
+        align-items: center;
+        height: 44px;
+        padding: 0 20px;
+        border-radius: 10px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background-color 0.15s;
+      }
+
+      .btn-ghost:hover {
+        background: var(--brand-primary-bg);
+      }
+
+      .site-actions .btn {
+        min-height: 44px;
+        padding: 0 20px;
+        box-shadow: none;
+        font-weight: 500;
+      }
+
+      .site-cats {
+        display: none;
+      }
+
+      .phone-menu {
+        margin: 0 var(--gutter) 12px;
+        padding: 8px 0;
+        background: var(--brand-surface);
+        border: 1px solid var(--brand-border);
+        border-radius: 10px;
+        box-shadow: var(--shadow-band);
+      }
+
+      .phone-menu[hidden] {
+        display: none;
+      }
+
+      .phone-menu a {
+        display: block;
+        padding: 12px 20px;
+      }
+
+      /* 2. Hero */
+      .hero {
+        overflow: hidden;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 40px;
+        padding-top: 48px;
+      }
+
+      .hero-eyebrow {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+      }
+
+      .hero-title {
+        margin-top: 16px;
+        font-size: clamp(34px, 6vw, 52px);
+      }
+
+      .hero-text {
+        max-width: 577px;
+        margin-top: 24px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--brand-text-secondary);
+      }
+
+      .hero .btn {
+        margin-top: 32px;
+        min-width: 206px;
+      }
+
+      .hero-art {
+        position: relative;
+        width: 100%;
+        max-width: 560px;
+        margin: 40px auto 0;
+        aspect-ratio: 560 / 700;
+      }
+
+      .hero-blob {
+        position: absolute;
+        inset: 0;
+        border-radius: 50% 0 25% 0;
+        background: linear-gradient(
+          178.6deg,
+          var(--brand-primary-bg) 1%,
+          rgba(249, 228, 236, 0.2) 99%
+        );
+      }
+
+      .hero-photo {
+        position: absolute;
+        left: 10%;
+        bottom: 0;
+        width: 94%;
+        height: 118%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      /* 3. Band */
+      .band {
+        padding: 56px 0;
+        background: var(--band);
+      }
+
+      /* 4. Cards */
+      .cards {
+        padding: 0 0 56px;
+      }
+
+      .cards-row {
+        gap: 24px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .card {
+        width: 280px;
+        border-radius: 12px;
+        background: var(--brand-surface);
+        box-shadow: 0 10px 30px rgba(46, 33, 61, 0.08);
+        overflow: hidden;
+      }
+
+      .card-image {
+        position: relative;
+        aspect-ratio: 330 / 425;
+        overflow: hidden;
+      }
+
+      .card-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+      }
+
+      .card-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(242, 168, 190, 0.22),
+          rgba(255, 255, 255, 0) 60%
+        );
+      }
+
+      .card-body {
+        padding: 14px 24px 20px;
+      }
+
+      .card-body > img {
+        width: 139px;
+      }
+
+      .card-text {
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--brand-text-secondary);
+      }
+
+      .card-name {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--brand-text-primary);
+      }
+
+      .card-price {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      /* 5. Brands */
+      .brands {
+        padding: 24px 0;
+      }
+
+      .brands-title {
+        text-align: center;
+      }
+
+      .brands-row {
+        align-items: center;
+        gap: 40px;
+        min-height: 208px;
+        margin-top: 24px;
+      }
+
+      .brands-row img {
+        width: auto;
+        height: 48px;
+      }
+
+      /* 6. Deal of the day */
+      .deal {
+        padding: 48px 0;
+      }
+
+      .deal-panel {
+        position: relative;
+        padding: 40px 24px 48px;
+        border-radius: 80px 0 60px 0;
+        background: var(--band);
+      }
+
+      .deal-dots {
+        position: absolute;
+        left: -8px;
+        top: -8px;
+        width: 155px;
+        height: 125px;
+        background: radial-gradient(
+            circle,
+            var(--brand-primary-light) 6px,
+            transparent 7px
+          )
+          0 0 / 31px 31px;
+      }
+
+      .deal-photo {
+        position: relative;
+        width: 240px;
+        margin: 0 auto;
+        aspect-ratio: 344 / 463;
+        transform: scaleX(-1);
+      }
+
+      .deal-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .deal-copy {
+        position: relative;
+        margin-top: 24px;
+      }
+
+      .deal-title {
+        color: var(--brand-primary);
+      }
+
+      .deal-lead {
+        max-width: 527px;
+        margin-top: 8px;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--brand-text-secondary);
+      }
+
+      .timer {
+        display: flex;
+        gap: 16px;
+        margin-top: 40px;
+        color: var(--brand-primary);
+      }
+
+      .timer-unit {
+        flex: 1 1 0;
+        max-width: 113px;
+        padding: 14px 4px 10px;
+        background: var(--brand-surface);
+        text-align: center;
+      }
+
+      .timer-digits {
+        font-size: clamp(36px, 6vw, 48px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.025em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .timer-label {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .deal-copy .btn {
+        min-width: 215px;
+        margin-top: 40px;
+        border-radius: 0;
+      }
+
+      /* 8. Red collection */
+      .red {
+        padding: 24px 0 0;
+      }
+
+      .red-title {
+        text-align: center;
+      }
+
+      .red-lead {
+        max-width: 618px;
+        margin: 8px auto 0;
+        font-size: 18px;
+        text-align: center;
+        color: var(--brand-text-secondary);
+      }
+
+      .pager {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .pager span {
+        width: 11px;
+        height: 11px;
+        border: 1px solid var(--brand-primary);
+        border-radius: 50%;
+      }
+
+      .pager span:first-child {
+        background: var(--brand-primary);
+      }
+
+      /* 9. Newsletter */
+      .newsletter {
+        position: relative;
+        padding: 0 0 80px;
+      }
+
+      /* The band paints behind the pager and the lower part of the red cards, like the design. */
+      .newsletter-band {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 140px;
+        background: var(--band-strong);
+      }
+
+      /* Padding, not a pager margin, so nothing collapses through the section and moves the band. */
+      .newsletter .container {
+        position: relative;
+        padding-top: 40px;
+      }
+
+      .newsletter-title {
+        padding-top: 120px;
+        text-align: center;
+      }
+
+      .newsletter-form {
+        position: relative;
+        display: flex;
+        max-width: 510px;
+        height: 60px;
+        margin: 24px auto 0;
+        padding: 2px;
+        border: 1px solid var(--brand-ink);
+        border-radius: 10px;
+        background: #fafafa;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        min-width: 0;
+        padding: 0 22px;
+        border: 0;
+        background: none;
+        font-size: 16px;
+        color: var(--brand-text-primary);
+      }
+
+      .newsletter-form input::placeholder {
+        color: var(--brand-text-muted);
+      }
+
+      .newsletter-form .btn {
+        min-height: 54px;
+        min-width: 140px;
+        padding: 0 24px;
+        box-shadow: none;
+      }
+
+      /* 10. Footer */
+      .footer {
+        padding: 56px 0 40px;
+        background: var(--brand-ink);
+        color: #fff;
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 40px 24px;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px 16px;
+      }
+
+      .footer-col p {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .footer-col a {
+        display: block;
+        padding: 10px 0;
+        font-size: 15px;
+      }
+
+      .footer-brand img {
+        height: 48px;
+        width: auto;
+      }
+
+      .footer-brand-name {
+        margin-top: 8px;
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .footer-pay {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      /* The Google Play file carries wide padding and its text is cut out as transparency: the box crops it the
+         way the design does, and the white backing lets the text read on the dark footer. */
+      .footer-play {
+        display: block;
+        width: 124px;
+        height: 46px;
+        overflow: hidden;
+        border-radius: 7px;
+        background: #fff;
+      }
+
+      .footer-play img {
+        width: 311px;
+        height: auto;
+        max-width: none;
+        margin: -62px 0 0 -94px;
+      }
+
+      .footer-pay > img {
+        width: 122px;
+        border-radius: 6px;
+      }
+
+      .footer-follow {
+        margin-top: 24px;
+      }
+
+      .footer-follow p {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .footer-social a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+      }
+
+      .footer-social .overlay {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        font-size: 16px;
+      }
+
+      .footer-legal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 24px;
+        font-size: 18px;
+      }
+
+      .footer-legal a {
+        display: inline-block;
+        padding: 8px 0;
+      }
+
+      @media (min-width: 640px) {
+        .btn-ghost,
+        .site-actions .btn {
+          display: inline-flex;
+        }
+
+        .btn-ghost {
+          margin-left: 4px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .site-bar {
+          gap: 20px;
+          height: 96px;
+        }
+
+        .site-bar .menu-btn {
+          display: none;
+        }
+
+        .site-logo img {
+          height: 64px;
+          max-width: none;
+        }
+
+        .site-search {
+          display: flex;
+          justify-content: center;
+          padding: 0 24px;
+        }
+
+        .site-search input {
+          max-width: 576px;
+          height: 48px;
+          padding: 0 52px 0 20px;
+          border-radius: 12px;
+          font-size: 16px;
+        }
+
+        .site-search .search-icon {
+          right: 16px;
+        }
+
+        .site-search .search-icon svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .icon-btn {
+          width: 52px;
+          height: 52px;
+        }
+
+        .likes {
+          display: inline-flex;
+        }
+
+        .site-cats {
+          display: block;
+          border-top: 1px solid rgba(232, 224, 228, 0.6);
+          background: var(--brand-surface);
+        }
+
+        .site-cats .container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .site-cats a {
+          display: inline-flex;
+          align-items: center;
+          padding: 16px 28px;
+          font-size: 14px;
+          font-weight: 500;
+          color: rgba(45, 45, 45, 0.7);
+          transition: color 0.15s;
+        }
+
+        .site-cats a:hover {
+          color: var(--brand-text-primary);
+        }
+
+        .site-cats .is-hot {
+          color: var(--brand-primary);
+          font-weight: 600;
+        }
+
+        .phone-menu {
+          display: none;
+        }
+
+        .card {
+          width: 330px;
+        }
+
+        .deal-panel {
+          display: grid;
+          grid-template-columns: 240px 1fr;
+          gap: 32px;
+          align-items: center;
+        }
+
+        .deal-photo {
+          margin: 0;
+        }
+
+        .deal-copy {
+          margin-top: 0;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr auto;
+        }
+
+        .footer-links {
+          grid-template-columns: repeat(3, auto);
+          gap: 32px 48px;
+        }
+
+        .footer-bottom {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        :root {
+          --gutter: 32px;
+        }
+
+        .row {
+          margin: 0;
+          padding: 0;
+          overflow: visible;
+        }
+
+        .site-logo img {
+          height: 80px;
+        }
+
+        .sell {
+          display: inline-flex;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr 560px;
+          gap: 24px;
+          height: 949px;
+          padding-top: 0;
+        }
+
+        .hero-copy {
+          padding-top: 90px;
+        }
+
+        .hero-art {
+          margin: 107px 0 0 auto;
+          width: 560px;
+          height: 700px;
+          aspect-ratio: auto;
+        }
+
+        .hero-blob {
+          border-radius: 280px 0 140px 0;
+        }
+
+        .hero-photo {
+          left: 57px;
+          bottom: auto;
+          top: -257px;
+          width: 527px;
+          height: 987px;
+        }
+
+        .band {
+          padding: 88px 0 56px;
+        }
+
+        .cards {
+          padding-bottom: 80px;
+        }
+
+        .cards-band-overlap {
+          margin-top: -21px;
+          padding-top: 0;
+        }
+
+        .cards-row {
+          display: grid;
+          grid-template-columns: repeat(3, 330px);
+          justify-content: center;
+          gap: 80px 100px;
+          padding: 0;
+        }
+
+        .brands {
+          padding: 0 0 86px;
+        }
+
+        .brands-row {
+          justify-content: space-between;
+          margin-top: 0;
+        }
+
+        .brands-row img {
+          height: 64px;
+        }
+
+        .brands-row img:first-child {
+          height: 87px;
+        }
+
+        .deal {
+          padding: 0 0 104px;
+        }
+
+        .deal-panel {
+          grid-template-columns: 344px 1fr;
+          gap: 0;
+          align-items: start;
+          width: 1000px;
+          height: 620px;
+          margin: 0 auto;
+          padding: 52px 40px 0 0;
+          border-radius: 165px 0 132px 0;
+        }
+
+        .deal-dots {
+          left: -77px;
+          top: 7px;
+        }
+
+        .deal-photo {
+          width: 344px;
+          margin: 124px 0 0 -20px;
+        }
+
+        .deal-copy {
+          padding-left: 0;
+        }
+
+        .timer {
+          gap: 42px;
+          margin-top: 70px;
+        }
+
+        .timer-unit {
+          flex: 0 0 113px;
+          height: 118px;
+          padding: 14px 0 0;
+        }
+
+        .deal-copy .btn {
+          margin: 69px 0 0 0;
+        }
+
+        .red {
+          padding-top: 72px;
+        }
+
+        .red .cards {
+          position: relative;
+          z-index: 1;
+          padding-bottom: 0;
+        }
+
+        .newsletter .container {
+          padding-top: 170px;
+        }
+
+        .newsletter {
+          margin-top: -108px;
+          padding: 0 0 215px;
+        }
+
+        .newsletter-band {
+          height: 276px;
+        }
+
+        .newsletter-title {
+          padding-top: 220px;
+        }
+
+        .newsletter-form {
+          margin-top: 32px;
+        }
+
+        .footer {
+          padding: 74px 0 40px;
+        }
+
+        .footer-links {
+          gap: 32px 120px;
+        }
+
+        .footer-col a {
+          padding: 10px 0;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" id="site-header">
+      <div class="container site-bar">
+        <button
+          class="icon-btn menu-btn"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="phone-menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 5h16" />
+            <path d="M4 12h16" />
+            <path d="M4 19h16" />
+          </svg>
+        </button>
+        <a class="site-logo" href="#"
+          ><img src="assets/logo.png" alt="Modest Kouture"
+        /></a>
+        <form class="site-search" role="search" aria-label="Search products">
+          <input
+            type="search"
+            placeholder="Search for dresses, abayas, hijabs..."
+            aria-label="Search for dresses, abayas, hijabs..."
+          />
+          <span class="search-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m21 21-4.34-4.34" />
+              <circle cx="11" cy="11" r="8" />
+            </svg>
+          </span>
+        </form>
+        <div class="site-actions">
+          <a class="btn-outline sell" href="#">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+              <path
+                d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"
+              />
+              <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" />
+            </svg>
+            Sell on MK
+          </a>
+          <a class="icon-btn likes" href="#" aria-label="Likes">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+              />
+            </svg>
+          </a>
+          <a class="icon-btn" href="#" aria-label="Open cart">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 10a4 4 0 0 1-8 0" />
+              <path d="M3.103 6.034h17.794" />
+              <path
+                d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"
+              />
+            </svg>
+          </a>
+          <a class="btn-ghost" href="#">Sign In</a>
+          <a class="btn" href="#">Register</a>
+        </div>
+      </div>
+      <nav class="site-cats" aria-label="Product categories">
+        <div class="container">
+          <a href="#">Women</a>
+          <a href="#">Men</a>
+          <a href="#">Children</a>
+          <a href="#">Electronics</a>
+          <a href="#">Pets</a>
+          <a href="#">Luxury</a>
+          <a href="#">Beauty</a>
+          <a href="#">Jewelry</a>
+          <a href="#">Plus Size</a>
+          <a href="#">Brand</a>
+          <a class="is-hot" href="#">Trending</a>
+        </div>
+      </nav>
+      <nav class="phone-menu" id="phone-menu" aria-label="Main" hidden>
+        <a href="#">Home</a>
+        <a href="#new">Shop</a>
+        <a href="#new">New Arrivals</a>
+        <a href="#">Sellers</a>
+        <a href="#">Likes</a>
+        <a href="#">Sign In</a>
+        <a href="#">Register</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">50% OFF FESTIVE SUPER SALE</p>
+            <h1 class="hero-title">Elevate Your Modest Wardrobe Today!</h1>
+            <p class="hero-text">
+              Abayas, dresses, hijabs and sets from independent sellers across
+              the United States, shipped from their studios to your door. One
+              checkout, every brand, and a return window on every order.
+            </p>
+            <a class="btn" href="#new">Explore Now</a>
+          </div>
+          <div class="hero-art">
+            <div class="hero-blob"></div>
+            <img class="hero-photo" src="assets/hero.webp" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="new">
+        <div class="container">
+          <h2 class="section-title">New Collection</h2>
+          <p class="section-lead">
+            Fresh modest pieces from independent sellers, added every week.
+          </p>
+        </div>
+      </section>
+
+      <section class="cards cards-band-overlap">
+        <div class="container">
+          <div class="row cards-row">
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-21.png"
+                  alt=""
+                  style="left: 9.09%; top: 2.35%; width: 81.8%; height: 97.6%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Satin Maxi Dress</span>Floor-length
+                  satin with a soft drape and full sleeves.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-25.png"
+                  alt=""
+                  style="top: -7.3%; height: 126.8%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Pleated Abaya</span>Fine pleats front
+                  and back, hidden snap closure.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-19.png"
+                  alt=""
+                  style="left: -10.9%; width: 122.1%; height: 155.8%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Chiffon Hijab Set</span>Three matching
+                  chiffon scarves with an underscarf.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img src="assets/card-9.png" alt="" style="height: 160.7%" />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Embroidered Kaftan</span>Hand-stitched
+                  neckline on breathable cotton.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-28.png"
+                  alt=""
+                  style="left: -7.27%; width: 107.3%; height: 166.8%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Knit Tunic</span>Long-line knit that
+                  layers over any skirt.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-20.png"
+                  alt=""
+                  style="left: -8.48%; top: -14.8%; height: 139.1%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Linen Co-ord</span>Relaxed linen top
+                  and wide-leg pants in one set.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="brands" aria-label="Top brands">
+        <div class="container">
+          <h2 class="brands-title">TOP BRANDS</h2>
+          <div class="row brands-row">
+            <img src="assets/brand-1.svg" alt="Louis Vuitton" />
+            <img src="assets/brand-2.svg" alt="Adidas" />
+            <img src="assets/brand-3.svg" alt="Nike" />
+            <img src="assets/brand-4.svg" alt="Chanel" />
+            <img src="assets/brand-5.svg" alt="Zara" />
+            <img src="assets/brand-6.svg" alt="Gucci" />
+          </div>
+        </div>
+      </section>
+
+      <section class="deal">
+        <div class="container">
+          <div class="deal-panel">
+            <div class="deal-dots" aria-hidden="true"></div>
+            <div class="deal-photo"><img src="assets/deal.png" alt="" /></div>
+            <div class="deal-copy">
+              <h2 class="deal-title">Exclusive deal of the day!</h2>
+              <p class="deal-lead">
+                Today only: 50% off the featured abaya set, while stock lasts.
+              </p>
+              <div class="timer" id="timer">
+                <div class="timer-unit">
+                  <div class="timer-digits" data-unit="days">05</div>
+                  <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-unit">
+                  <div class="timer-digits" data-unit="hours">15</div>
+                  <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-unit">
+                  <div class="timer-digits" data-unit="minutes">35</div>
+                  <div class="timer-label">Min</div>
+                </div>
+              </div>
+              <a class="btn" href="#">SHOP NOW</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards">
+        <div class="container">
+          <div class="row cards-row">
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-15.png"
+                  alt=""
+                  style="left: -15.76%; width: 121.2%; height: 121.9%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Evening Abaya</span>Matte crepe with a
+                  beaded cuff, fully lined.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-7.png"
+                  alt=""
+                  style="top: -10.12%; height: 173.65%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Printed Midi Dress</span>Small floral
+                  print, long sleeves, side pockets.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img src="assets/card-17.png" alt="" />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Wrap Cardigan</span>Soft wool blend
+                  with a long tie belt.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-19.png"
+                  alt=""
+                  style="left: -10.9%; width: 122.1%; height: 155.8%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Modest Swim Set</span>Quick-dry
+                  three-piece with a built-in hood.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img src="assets/card-13.png" alt="" style="height: 132.7%" />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Tiered Skirt</span>Three soft tiers,
+                  elastic waist, ankle length.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-image">
+                <img
+                  src="assets/card-26.png"
+                  alt=""
+                  style="left: 3.64%; height: 117.4%"
+                />
+              </div>
+              <div class="card-body">
+                <img src="assets/rating.svg" alt="Five stars" />
+                <p class="card-text">
+                  <span class="card-name">Ruffle Blouse</span>High neck, ruffled
+                  front, covered buttons.
+                </p>
+                <p class="card-price">$149</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="red">
+        <div class="container">
+          <h2 class="red-title">Exclusive Red Collection</h2>
+          <p class="red-lead">
+            Three statement reds from our sellers, limited to this season.
+          </p>
+        </div>
+        <div class="cards">
+          <div class="container">
+            <div class="row cards-row">
+              <article class="card">
+                <div class="card-image">
+                  <img src="assets/card-24.png" alt="" />
+                </div>
+                <div class="card-body">
+                  <img src="assets/rating.svg" alt="Five stars" />
+                  <p class="card-text">
+                    <span class="card-name">Crimson Abaya</span>Deep red crepe
+                    with a satin-trimmed hem.
+                  </p>
+                  <p class="card-price">$149</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card-image">
+                  <img src="assets/card-12.png" alt="" />
+                </div>
+                <div class="card-body">
+                  <img src="assets/rating.svg" alt="Five stars" />
+                  <p class="card-text">
+                    <span class="card-name">Red Wrap Dress</span>Full coverage
+                    wrap with a long sash.
+                  </p>
+                  <p class="card-price">$149</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card-image">
+                  <img
+                    src="assets/card-16.png"
+                    alt=""
+                    style="
+                      left: -14.55%;
+                      top: -3.76%;
+                      width: 124.5%;
+                      height: 127.3%;
+                    "
+                  />
+                </div>
+                <div class="card-body">
+                  <img src="assets/rating.svg" alt="Five stars" />
+                  <p class="card-text">
+                    <span class="card-name">Scarlet Kimono</span>Light
+                    open-front layer with wide sleeves.
+                  </p>
+                  <p class="card-price">$149</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <div class="newsletter-band" aria-hidden="true"></div>
+        <div class="container">
+          <div class="pager" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <h2 class="newsletter-title">Subscribe to Get 50% Discount Price</h2>
+          <form class="newsletter-form" id="subscribe-form">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              aria-label="Email address"
+              autocomplete="email"
+              required
+            />
+            <button class="btn" type="submit">Shop Now</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-links">
+            <div class="footer-col">
+              <p>Help</p>
+              <a href="#">Shipping</a>
+              <a href="#">Return Policy</a>
+              <a href="#">Terms &amp; Conditions</a>
+              <a href="#">Privacy Policy</a>
+            </div>
+            <div class="footer-col">
+              <p>Shop</p>
+              <a href="#">Products</a>
+              <a href="#">Overview</a>
+              <a href="#">Pricing</a>
+              <a href="#">Payment</a>
+            </div>
+            <div class="footer-col">
+              <p>Company</p>
+              <a href="#">About Us</a>
+              <a href="#">Contact Us</a>
+              <a href="#">News</a>
+              <a href="#">Support</a>
+            </div>
+          </div>
+          <div class="footer-brand">
+            <img src="assets/logo.png" alt="Modest Kouture" />
+            <p class="footer-brand-name">Modest Kouture</p>
+            <div class="footer-pay">
+              <a class="footer-play" href="#"
+                ><img src="assets/payment.png" alt="Get it on Google Play"
+              /></a>
+              <a href="#"
+                ><img
+                  src="assets/app-badge.png"
+                  alt="Download on the App Store"
+              /></a>
+            </div>
+            <div class="footer-follow">
+              <p>Follow Us</p>
+              <div class="footer-social">
+                <a href="#" aria-label="Facebook"
+                  ><img src="assets/social-1.svg" alt=""
+                /></a>
+                <a href="#" aria-label="Instagram"
+                  ><img src="assets/social-2.svg" alt=""
+                /></a>
+                <a href="#" aria-label="X"
+                  ><img src="assets/social-3.svg" alt=""
+                /></a>
+                <a href="#" aria-label="YouTube"
+                  ><img src="assets/social-4.svg" alt="" /><img
+                    class="overlay"
+                    src="assets/social-4b.svg"
+                    alt=""
+                /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Modest Kouture. All rights reserved.</p>
+          <nav class="footer-legal" aria-label="Legal">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Conditions</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Countdown: starts at 5 days 15 hours 35 minutes, like the design, and ticks down.
+      const deadline = Date.now() + ((5 * 24 + 15) * 60 + 35) * 60 * 1000;
+      const boxes = Object.fromEntries(
+        [...document.querySelectorAll("#timer [data-unit]")].map((el) => [
+          el.dataset.unit,
+          el,
+        ])
+      );
+      const pad = (n) => String(n).padStart(2, "0");
+      function tick() {
+        const left = Math.max(0, Math.floor((deadline - Date.now()) / 60000));
+        boxes.days.textContent = pad(Math.floor(left / 1440));
+        boxes.hours.textContent = pad(Math.floor((left % 1440) / 60));
+        boxes.minutes.textContent = pad(left % 60);
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      // The header picks up a shadow once the page scrolls, like the store's.
+      const header = document.getElementById("site-header");
+      const syncShadow = () =>
+        header.classList.toggle("is-scrolled", window.scrollY > 10);
+      syncShadow();
+      window.addEventListener("scroll", syncShadow, { passive: true });
+
+      // The phone menu button opens and closes the link list under the bar.
+      const menuButton = header.querySelector(".menu-btn");
+      const phoneMenu = document.getElementById("phone-menu");
+      menuButton.addEventListener("click", () => {
+        const open = phoneMenu.hidden;
+        phoneMenu.hidden = !open;
+        menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.setAttribute(
+          "aria-label",
+          open ? "Close menu" : "Open menu"
+        );
+      });
+
+      const search = header.querySelector(".site-search");
+      search.addEventListener("submit", (event) => event.preventDefault());
+
+      // Phones get the store's short placeholder; wider screens the full one.
+      const searchInput = search.querySelector("input");
+      const wide = matchMedia("(min-width: 768px)");
+      const syncPlaceholder = () => {
+        searchInput.placeholder = wide.matches
+          ? "Search for dresses, abayas, hijabs..."
+          : "Search";
+      };
+      syncPlaceholder();
+      wide.addEventListener("change", syncPlaceholder);
+
+      document
+        .getElementById("subscribe-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          event.target.reset();
+        });
+    </script>
+  </body>
+</html>
